@@ -35,6 +35,10 @@ requirements:
     - tornado <5  # pinned for bluesky
     - traitlets
 
+test:
+  imports:
+    - bluesky_browser
+
 about:
   license: {{ setup_py.get('license') }}
   license_file: LICENSE
