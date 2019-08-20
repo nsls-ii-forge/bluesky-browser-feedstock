@@ -1,14 +1,15 @@
+{% set name = "bluesky-browser" %}
 {% set version = "0.1.0a2" %}
+{% set sha256 = "0e4b978ea216cd42fa72c51253646308b25536d4be9a5126d4bfc20790c538ea" %}
 {% set setup_py = load_setup_py_data() %}
 
 package:
-  name: 'bluesky-browser'
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/bluesky/bluesky-browser
-  git_rev: v{{ version }}
-  sha256: 10f7a946ccb18e4870a4dd3fa643f63c5dfd7df3734492f1a47dc2ccdebd21b2
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
   noarch: python
@@ -33,6 +34,10 @@ requirements:
     - suitcase-jsonl
     - tornado <5  # pinned for bluesky
     - traitlets
+
+test:
+  imports:
+    - bluesky_browser
 
 about:
   license: {{ setup_py.get('license') }}
