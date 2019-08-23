@@ -1,4 +1,5 @@
 {% set name = "bluesky-browser" %}
+{% set name_ = name.replace('-', '_') %}
 {% set version = "0.1.0a2" %}
 {% set sha256 = "0e4b978ea216cd42fa72c51253646308b25536d4be9a5126d4bfc20790c538ea" %}
 {% set setup_py = load_setup_py_data() %}
@@ -12,11 +13,11 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  noarch: python
   number: 1
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  skip: True  # [py<36]
   entry_points:
-      - {{ name }} = bluesky_browser.main:main
+      - {{ name }} = {{ name_ }}.main:main
       
 requirements:
   host:
@@ -39,7 +40,7 @@ requirements:
 
 test:
   imports:
-    - bluesky_browser
+    - {{ name_ }}
   commands:
     - {{ name }} --help  # [not linux]
 
