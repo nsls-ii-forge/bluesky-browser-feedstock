@@ -40,6 +40,8 @@ requirements:
 test:
   imports:
     - bluesky_browser
+  commands:
+    - {{ name }} --help
 
 about:
   license: {{ setup_py.get('license') }}
