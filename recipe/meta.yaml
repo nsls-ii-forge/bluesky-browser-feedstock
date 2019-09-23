@@ -5,7 +5,7 @@
 {% set setup_py = load_setup_py_data() %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
@@ -17,7 +17,7 @@ build:
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   skip: True  # [py<36]
   entry_points:
-      - {{ name }} = {{ name_ }}.main:main
+    - {{ name }} = {{ name_ }}.main:main
       
 requirements:
   host:
