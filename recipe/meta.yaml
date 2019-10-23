@@ -43,6 +43,8 @@ test:
   imports:
     - bluesky_browser
   commands:
+    - DISPLAY=localhost:1.0 xvfb-run -a bash -c 'bluesky-browser --help'
+    - DISPLAY=localhost:1.0 xvfb-run -a bash -c 'bluesky-browser-qt --help'
     - bluesky-browser --help
     - bluesky-browser-qt --help
 
