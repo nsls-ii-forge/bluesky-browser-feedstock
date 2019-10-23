@@ -1,5 +1,4 @@
 {% set name = "bluesky-browser" %}
-{% set name_ = name.replace('-', '_') %}
 {% set version = "0.1.0a5" %}
 {% set sha256 = "c9c703494c3f49d0edc146a03b4f9de1873e88808cdd2d8963ab5f4d47311414" %}
 {% set setup_py = load_setup_py_data() %}
@@ -17,8 +16,9 @@ build:
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   skip: True  # [py<36]
   entry_points:
-    - {{ name }} = {{ name_ }}.main:main
-      
+    - bluesky-browser-qt = bluesky_browser.frameworks.qt.main:main
+    - bluesky-browser = bluesky_browser.frameworks.qt.main:main
+
 requirements:
   host:
     - python
@@ -41,9 +41,10 @@ requirements:
 
 test:
   imports:
-    - {{ name_ }}
+    - bluesky_browser
   commands:
-    - {{ name }} --help
+    - bluesky-browser --help
+    - bluesky-browser-qt --help
 
 about:
   license: {{ setup_py.get('license') }}
