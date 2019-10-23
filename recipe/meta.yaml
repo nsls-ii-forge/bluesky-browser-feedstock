@@ -1,7 +1,6 @@
 {% set name = "bluesky-browser" %}
-{% set name_ = name.replace('-', '_') %}
-{% set version = "0.1.0a2" %}
-{% set sha256 = "0e4b978ea216cd42fa72c51253646308b25536d4be9a5126d4bfc20790c538ea" %}
+{% set version = "0.1.0a5" %}
+{% set sha256 = "c9c703494c3f49d0edc146a03b4f9de1873e88808cdd2d8963ab5f4d47311414" %}
 {% set setup_py = load_setup_py_data() %}
 
 package:
@@ -13,12 +12,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
   skip: True  # [py<36]
   entry_points:
-    - {{ name }} = {{ name_ }}.main:main
-      
+    - bluesky-browser-qt = bluesky_browser.frameworks.qt.main:main
+    - bluesky-browser = bluesky_browser.frameworks.qt.main:main
+
 requirements:
   host:
     - python
@@ -26,8 +26,9 @@ requirements:
   run:
     - python
     - bluesky
-    - event-model >=1.9.0a3
-    - intake-bluesky >=0.1.0a5
+    - databroker >=1.0.0a1
+    - event-model >=1.11.1
+    - intake
     - jsonschema
     - matplotlib
     - ophyd  # for demo's example data generator -- maybe should be optional?
@@ -35,14 +36,17 @@ requirements:
     - pyzmq
     - qtpy
     - suitcase-jsonl
-    - tornado <5  # pinned for bluesky
+    - tornado 
     - traitlets
 
 test:
   imports:
-    - {{ name_ }}
+    - bluesky_browser
   commands:
-    - {{ name }} --help
+    - DISPLAY=localhost:1.0 xvfb-run -a bash -c 'bluesky-browser --help'  # [linux]
+    - DISPLAY=localhost:1.0 xvfb-run -a bash -c 'bluesky-browser-qt --help'  # [linux]
+    - bluesky-browser --help  # [not linux]
+    - bluesky-browser-qt --help  # [not linux]
 
 about:
   license: {{ setup_py.get('license') }}
