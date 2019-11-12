@@ -1,6 +1,6 @@
 {% set name = "bluesky-browser" %}
-{% set version = "0.1.0a5" %}
-{% set sha256 = "c9c703494c3f49d0edc146a03b4f9de1873e88808cdd2d8963ab5f4d47311414" %}
+{% set version = "0.1.0a7" %}
+{% set sha256 = "d413e1ed21300e2c8a912d534c93c9f1826a1bc662996bf39f591e9a23af5049" %}
 {% set setup_py = load_setup_py_data() %}
 
 package:
